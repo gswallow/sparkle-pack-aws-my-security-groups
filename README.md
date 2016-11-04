@@ -49,10 +49,10 @@ end ```
 In a SparkleFormation Template/Component/Dynamic:
 ```ruby security_group = registry!(:my_security_group_id, 'filter') ```
 
-The `my_security_group_id` registry will return a Subnet ID.
+The `my_security_group_id` registry will return a Subnet ID.  There is also
+a `my_security_group_name` registry.
 
 ```ruby security_groups = registry!(:all_security_group_ids) ```
 
 The `all_security_group_ids` registry will return an array of all security
-groups in the VPC.
-
+groups in the VPC.  There is also an `all_security_group_names` registry.

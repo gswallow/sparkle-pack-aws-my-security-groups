@@ -27,3 +27,16 @@ SfnRegistry.register(:my_security_group_id) do |filter = ENV['sg']|
     end.nil?
   end.compact.first
 end
+
+# Apaprently I use these
+SfnRegistry.register(:all_security_group_names) do
+  my_security_groups.map(&:group_name)
+end
+
+SfnRegistry.register(:my_security_group_name) do |filter = ENV['sg']|
+  my_security_groups.collect do |sg|
+    sg.group_name if !sg.tags.find_index do |tag|
+      tag.key == "Name" && tag.value == filter
+    end.nil?
+  end.compact.first
+end
