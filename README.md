@@ -24,18 +24,6 @@ Pack:
 - AWS_CUSTOMER_ID (optional)
 - environment
 
-### Use Cases
-
-This SparklePack adds registry entries that use the AWS SDK to detect security
-groups within your VPC (based on `ENV['AWS_REGION']` and `ENV['environment']`).
-By default, it will return whichever security group's `Name` tag matches
-`ENV['sg']`, though you can specify a filter when calling the registry.  See 
-below.
-
-It also adds two dynamics: `vpc_security_group` and `security_group_ingress`, 
-which can be called from other templates to add new security groups, or to add
-ingress rules to existing security groups in a VPC.
-
 ## Usage 
 
 Add the pack to your Gemfile and .sfn:
