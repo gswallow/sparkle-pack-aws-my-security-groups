@@ -1,27 +1,19 @@
-SparkleFormation.dynamic(:vpc_security_group) do |name, config|
+SparkleFormation.dynamic(:vpc_security_group) do |name, options|
 
-  # {
-  #   "Type" : "AWS::EC2::SecurityGroup",
-  #   "Properties" : {
-  #     "GroupDescription" : String,
-  #     "SecurityGroupEgress" : [ Security Group Rule, ... ],
-  #     "SecurityGroupIngress" : [ Security Group Rule, ... ],
-  #     "Tags" :  [ Resource Tag, ... ],
-  #     "VpcId" : String
-  #   }
-  # }
-
-  # _config[:allow_icmp] allows inbound ICMP messages and echo replies
-  # _config[:ingress_rules] and _config[:egress_rules] are arrays of hashes:
+  # To link members of different security groups together, create
+  # security_group_ingress dynamics.
+  #
+  # options[:allow_icmp] allows inbound ICMP messages and echo replies
+  # options[:ingress_rules] and options[:egress_rules] are arrays of hashes:
   #
   # [{ :cidr_ip => '0.0.0.0/0', ip_protocol => 'tcp', :from_port => '22', :to_port => '22' }]
 
   ingress_rules = ::Array.new
-  ingress_rules.concat registry!(:inbound_icmp) if config.fetch(:allow_icmp, false)
-  ingress_rules.concat config[:ingress_rules] if config.has_key?(:ingress_rules)
+  ingress_rules.concat registry!(:inbound_icmp) if options.fetch(:allow_icmp, false)
+  ingress_rules.concat options.fetch(:ingress_rules, [])
 
   egress_rules = ::Array.new
-  egress_rules.concat config[:egress_rules] if config.has_key?(:egress_rules)
+  egress_rules.concat options.fetch(:egress_rules, [])
 
   dynamic!(:ec2_security_group, name.gsub('-', '_').to_sym).properties do
     group_description "#{name} security group"
