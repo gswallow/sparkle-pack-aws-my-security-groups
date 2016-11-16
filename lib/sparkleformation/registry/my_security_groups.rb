@@ -28,7 +28,7 @@ SfnRegistry.register(:my_security_group_id) do |filter = ENV['sg']|
   end.compact.first
 end
 
-# Apaprently I use these
+# Apparently I use these.
 SfnRegistry.register(:all_security_group_names) do
   my_security_groups.map(&:group_name)
 end
