@@ -5,10 +5,10 @@
 SparkleFormation.dynamic(:security_group_ingress) do |name, options={}|
 
   dynamic!(:ec2_security_group_ingress, name.gsub('-','_').to_sym).properties do
-    source_security_group_id attr!(options[:source_sg], 'GroupId')
+    source_security_group_id options[:source_sg]
     ip_protocol options[:ip_protocol]
     from_port options[:from_port]
     to_port options[:to_port]
-    group_id attr!(options[:target_sg], 'GroupId')
+    group_id options[:target_sg]
   end
 end
