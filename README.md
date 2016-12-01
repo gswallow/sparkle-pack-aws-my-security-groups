@@ -49,7 +49,7 @@ In a SparkleFormation Template/Component/Dynamic:
 security_group = registry!(:my_security_group_id, 'filter')
 ```
 
-The `my_security_group_id` registry will return a Subnet ID.  There is also
+The `my_security_group_id` registry will return a security group ID.  There is also
 a `my_security_group_name` registry.
 
 ```ruby
